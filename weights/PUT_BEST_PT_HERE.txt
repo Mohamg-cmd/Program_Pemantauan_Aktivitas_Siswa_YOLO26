@@ -1,0 +1,8 @@
+Place the validated final YOLO26-M checkpoint here as:
+
+weights/best.pt
+
+The final validation evaluation used the validated checkpoint at that path.
+The model file is intentionally omitted from this source-only package to keep
+code distribution lightweight; no model retraining is required for downstream
+identity/reproducibility analysis when existing trajectory outputs are valid.

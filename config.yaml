@@ -1,0 +1,114 @@
+# YOLO26-M FINAL research configuration
+# This package uses student-level identity association as the default.
+# Raw BoT-SORT track_id values are trajectory identifiers, NOT student IDs.
+
+source:
+  model_path: "weights/best.pt"
+  data_yaml: "data.yaml"
+  video_path: "data/video_part001.mp4"
+  audit_video_path: "data/video_audit_tracking.mp4"
+  trajectory_jsonl: "data/trajectory_botsort.jsonl"
+  detections_csv: "output/detections.csv"
+
+output_dir: "output"
+
+criteria: ["Angkat Tangan", "Berdiri", "Diam", "Tidur"]
+orientation:
+  "Angkat Tangan": benefit
+  "Berdiri": benefit
+  "Diam": cost
+  "Tidur": cost
+
+temporal:
+  fps: 25.0
+  min_track_frames: 15
+  representation: duration
+  representations: [duration, frequency]
+  strict_classes: true
+
+identity:
+  mode: student_level
+  seats_csv: data/student_seats.csv
+  expected_students: 21
+  assignment_method: fixed_seat
+  max_seat_distance: 150.0
+  roi_bonus: 0.25
+  min_track_seat_score: 0.45
+  min_track_seat_purity: 0.60
+  min_track_positive_fraction: 0.25
+  track_ambiguity_margin: 0.08
+  short_track_frames: 10
+  short_track_min_seat_score: 0.65
+  min_identity_confidence: 0.35
+  temporal_smoothing_window: 15
+  hysteresis_switch_margin: 0.20
+  reassociation_gap_frames: 90
+  allow_reid_secondary: true
+  weight_spatial: 0.70
+  weight_temporal: 0.20
+  weight_reid: 0.10
+  max_ambiguous_ratio: 0.05
+  max_duplicate_ratio: 0.30
+  min_student_frame_coverage: 0.50
+  min_mean_student_frame_coverage: 0.70
+  min_seat_purity: 0.70
+  max_long_gap_ratio: 0.25
+  long_gap_auto_verify_purity: 0.90
+  long_gap_auto_verify_score: 0.70
+
+detection:
+  conf: 0.25
+  iou: 0.50
+  imgsz: 640
+  device: "0"
+  save_video: false
+  force_detect: false
+  keep_untracked: false
+
+tracking:
+  tracker: "botsort_reid.yaml"
+  with_reid: true
+  reid_model: null
+
+ahp:
+  matrix:
+    - [1.0, 2.0, 3.0, 3.0]
+    - [0.5, 1.0, 2.0, 3.0]
+    - [0.333333333333, 0.5, 1.0, 2.0]
+    - [0.333333333333, 0.333333333333, 0.5, 1.0]
+  source: researcher_constructed_supervisor_reviewed
+  expert_count: 0
+  aggregation_method: null
+  block_on_inconsistent: true
+  max_cr: 0.10
+
+wp:
+  normalization: minmax_floor
+  floor: 0.01
+  zero_epsilon: 1.0e-6
+
+sensitivity:
+  perturbations: [-0.20, -0.10, -0.05, 0.05, 0.10, 0.20]
+  normalization_methods: [minmax_floor, ratio_floor]
+
+monte_carlo:
+  enabled: true
+  iterations: 5000
+  seed: 42
+  method: dirichlet_around_base
+  concentration: 50.0
+
+experiments:
+  temporal_comparison: true
+  ablation: true
+  normalization_sensitivity: true
+  error_propagation: true
+  identity_audit_video: false
+  detector_evaluation: false
+
+mot_evaluation:
+  ground_truth_csv: null
+
+detector_evaluation:
+  split: test
+  batch: 16

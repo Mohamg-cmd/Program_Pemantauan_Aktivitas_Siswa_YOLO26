@@ -1,0 +1,18 @@
+YOLO26 FILE PLACEMENT
+
+1) Put the YOLO26-M checkpoint here:
+   weights\\best.pt
+
+2) Put the original CCTV video here (ONLY needed for a full re-track):
+   data\\video_asli.mp4
+
+3) Put the existing audit/tracking video here (for visual audit/reference):
+   data\\video_audit_tracking.mp4
+
+4) Put the existing trajectory here for downstream analysis without re-tracking:
+   data\\trajectory_botsort.jsonl
+
+5) Fixed-seat calibration:
+   data\\student_seats.csv
+
+You do NOT need to put the large original video into any Git/ZIP archive.

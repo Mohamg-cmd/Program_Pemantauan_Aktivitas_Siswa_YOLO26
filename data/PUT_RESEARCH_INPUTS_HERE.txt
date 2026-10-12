@@ -1,0 +1,11 @@
+For a full standalone run, place the existing research inputs here:
+
+video_part001.mp4
+video_audit_tracking.mp4
+trajectory_botsort.jsonl
+
+Also keep the validated detector at:
+weights/best.pt
+
+Downstream analysis can run without the original video when a valid
+trajectory_botsort.jsonl or output/detections.csv already exists.

@@ -1,0 +1,15 @@
+# Final YOLO26 dataset definition.
+# Dataset layout expected:
+# dataset/bima_lppm2_-2/{train,valid,test}/{images,labels}
+
+path: ./dataset/bima_lppm2_-2
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 4
+names:
+  0: Angkat Tangan
+  1: Berdiri
+  2: Diam
+  3: Tidur

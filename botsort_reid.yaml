@@ -1,0 +1,22 @@
+# BoT-SORT + ReID configuration
+# Tujuan: mengurangi ID switching pada kelas dengan banyak occlusion.
+# Gunakan: tracker=path/to/botsort_reid.yaml
+
+tracker_type: botsort
+
+# Association / lifecycle
+track_high_thresh: 0.50
+track_low_thresh: 0.10
+new_track_thresh: 0.60
+track_buffer: 120
+match_thresh: 0.80
+fuse_score: true
+
+# Global motion compensation
+gmc_method: sparseOptFlow
+
+# Appearance / ReID
+proximity_thresh: 0.50
+appearance_thresh: 0.25
+with_reid: true
+model: auto

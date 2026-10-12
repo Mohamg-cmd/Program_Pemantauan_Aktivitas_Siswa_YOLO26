@@ -1,0 +1,39 @@
+# Validation configuration bundle for the FINAL YOLO26 project.
+# Paths are relative to the project root (one level above this file).
+
+project_root: ".."
+output_dir: "../output/validation"
+
+class_imbalance:
+  data_yaml: "../dataset/bima_lppm2_-2/data.yaml"
+  train_split: "train"
+  minority_classes: [0, 1]
+  oversample_factor: 4
+  target_strategy: "audit-only"
+
+# Existing validated detector artifacts are preferred. --run-detector explicitly
+# reruns model.val(); it never retrains the detector.
+detector_evaluation:
+  model_path: "../weights/best.pt"
+  data_yaml: "../dataset/bima_lppm2_-2/data.yaml"
+  split: "test"
+  imgsz: 640
+  batch: 16
+  conf: null
+  iou: 0.7
+  device: "0"
+  run_validation: false
+  plots: true
+
+identity_reconciliation:
+  identity_assignments_csv: "../output/identity_assignments.csv"
+  student_audit_csv: "../output/student_identity_audit.csv"
+  track_to_student_csv: "../output/track_to_student_summary(2).csv"
+  expected_students: 21
+  legacy_claims: {}
+
+seat_purity:
+  identity_assignments_csv: "../output/identity_assignments.csv"
+  student_audit_csv: "../output/student_identity_audit.csv"
+  seats_csv: "../data/student_seats.csv"
+  expected_students: 21

@@ -1,0 +1,10 @@
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+pyyaml>=6.0
+openpyxl>=3.1
+opencv-python>=4.8
+ultralytics>=8.3.0
+torch
+torchvision
+pytest>=8.0
